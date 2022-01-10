@@ -5,15 +5,23 @@ import (
 	"net/http"
 )
 
+//const to store port number
+const PortNumber := 8080
+
+func Home(w http.ResponseWriter, r *http.Response) {
+	fmt.Fprintf(w, "The Golang home page")
+}
+
+func About(w http.ResponseWriter, r *http.Response) {
+	fmt.Fprintf(w, "The Golang about page")
+}
+
+
 //Simple main function to test out the output
 func main() {
-	http.HandleFunc("/",func(w http.ResponseWriter, r *http.Request){
-		_, err := fmt.Fprintf(w, "Hello to Go Web World!!")
-		if err != nil {
-			fmt.Println("An error occured: ", err)
-		}
-	})
+	http.HandleFunc("/", Home)
+	http.HandleFunc("/About", About)
 
 	//open the port to listen
-	_ = http.ListenAndServe(":8080", nil)
+	_ = http.ListenAndServe(PortNumber, nil)
 }
